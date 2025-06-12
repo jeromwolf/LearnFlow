@@ -1,0 +1,53 @@
+{
+    "mcpServers": {
+        "taskmaster-ai": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "--package=task-master-ai",
+                "task-master-ai"
+            ],
+            "env": {
+                "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+            }
+        },
+        "desktop-commander": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@smithery/cli@latest",
+                "run",
+                "@wonderwhy-er/desktop-commander",
+                "--key",
+                "26059252-101c-40de-b2d8-3e81234482d1"
+            ]
+        },
+        "playwright-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@smithery/cli@latest",
+                "run",
+                "@microsoft/playwright-mcp",
+                "--key",
+                "b6be39e3-462e-421f-83d1-92253fef3186"
+            ]
+        },
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp"
+            ]
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "env": {}
+        }
+    }
+}
