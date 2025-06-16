@@ -36,6 +36,7 @@ LearnFlow는 사용자 친화적인 온라인 학습 플랫폼입니다. 복잡�
 ### **Backend**
 - **Framework**: FastAPI (Python)
 - **Database & Auth**: Supabase (PostgreSQL + Auth)
+- **ORM**: SQLAlchemy 2.0 + Alembic (데이터베이스 마이그레이션)
 - **Storage**: Supabase Storage
 - **API**: Supabase Realtime API
 - **Authentication**: Supabase Auth (Email, Social Login)
@@ -49,33 +50,136 @@ LearnFlow는 사용자 친화적인 온라인 학습 플랫폼입니다. 복잡�
 - **Monitoring**: Supabase Dashboard
 - **Server Costs**: Initial Free Plan (Upgrade to Paid Plan as Growth)
 
+## 🚀 **개발 환경 설정**
+
+### **필수 도구**
+- Python 3.9+
+- Node.js 18+
+- Git
+- PostgreSQL (로컬 개발용, 또는 Supabase 사용)
+
+### **백엔드 설정**
+
+1. 저장소 클론:
+   ```bash
+   git clone https://github.com/yourusername/learnflow.git
+   cd learnflow
+   ```
+
+2. Python 가상 환경 생성 및 활성화:
+   ```bash
+   # macOS/Linux
+   python -m venv venv
+   source venv/bin/activate
+
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+3. 의존성 설치:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. 환경 변수 설정 (`.env` 파일 생성):
+   ```env
+   # Supabase 설정
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   
+   # 데이터베이스 연결 (Supabase 또는 로컬)
+   DATABASE_URL=postgresql://postgres:your_password@your_supabase_url:5432/postgres
+   
+   # 기타 설정
+   SECRET_KEY=your_secret_key
+   DEBUG=True
+   ```
+
+5. 데이터베이스 마이그레이션 적용:
+   ```bash
+   cd src/backend
+   alembic upgrade head
+   ```
+
+6. 개발 서버 실행:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+### **프론트엔드 설정**
+
+1. 의존성 설치:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. 환경 변수 설정 (`.env.local` 파일 생성):
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+3. 개발 서버 실행:
+   ```bash
+   npm run dev
+   ```
+
+## 📊 **데이터베이스 마이그레이션**
+
+Alembic을 사용하여 데이터베이스 스키마를 관리합니다.
+
+### **새 마이그레이션 생성**
+```bash
+alembic revision --autogenerate -m "설명을_여기에_작성"
+```
+
+### **마이그레이션 적용**
+```bash
+alembic upgrade head
+```
+
+### **마이그레이션 되돌리기**
+```bash
+alembic downgrade -1
+```
+
+### **마이그레이션 히스토리 확인**
+```bash
+alembic history
+```
+
+### **현재 마이그레이션 상태 확인**
+```bash
+alembic current
+```
+
 ## 📁 **프로젝트 구조**
 
 ```
 learnflow/
-├── frontend/                 # Next.js Frontend
-│   ├── src/
-│   │   ├── app/             # App Router Pages
-│   │   ├── components/      # React Components
-│   │   ├── lib/            # Utilities & API Client
-│   │   ├── hooks/          # Custom Hooks
-│   │   └── types/          # TypeScript Types
-│   ├── public/             # Static Assets
-│   └── package.json
-├── backend/                 # FastAPI Backend
-│   ├── app/
-│   │   ├── models/         # SQLAlchemy Models
-│   │   ├── schemas/        # Pydantic Schemas
-│   │   ├── api/           # API Routes
-│   │   ├── core/          # Core Utilities
-│   │   └── utils/         # Helper Functions
-│   ├── requirements.txt
-│   └── main.py
-├── docs/                   # Documentation
-│   ├── PRD.md             # Product Requirements Document
-│   ├── API.md             # API Documentation
-│   └── DEPLOYMENT.md      # Deployment Guide
-└── README.md              # This file
+├── src/
+│   ├── frontend/         # Next.js Frontend
+│   │   ├── app/          # App Router Pages
+│   │   ├── components/   # React Components
+│   │   ├── lib/         # Utilities & API Client
+│   │   ├── hooks/       # Custom Hooks
+│   │   └── types/       # TypeScript Types
+│   ├── backend/         # FastAPI Backend
+│   │   ├── models/     # SQLAlchemy Models
+│   │   ├── schemas/    # Pydantic Schemas
+│   │   ├── api/       # API Routes
+│   │   ├── core/      # Core Utilities
+│   │   └── utils/     # Helper Functions
+├── infra/                # Infrastructure as Code
+│   └── main.tf          # Terraform Configuration
+├── docs/                # Documentation
+│   ├── PRD.md          # Product Requirements Document
+│   ├── API.md          # API Documentation
+│   └── DEPLOYMENT.md   # Deployment Guide
+└── README.md           # This file
 ```
 
 ## 🚀 **빠른 시작**
