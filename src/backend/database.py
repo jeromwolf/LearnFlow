@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Supabase 데이터베이스 URL
-DATABASE_URL = os.getenv('SUPABASE_URL')
+# 데이터베이스 URL (환경 변수에서 가져오거나 기본값 사용)
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/learnflow')
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -35,15 +35,83 @@ LearnFlow는 사용자 친화적인 온라인 학습 플랫폼입니다. 복잡�
 
 ### **Backend**
 - **Framework**: FastAPI (Python)
-- **Database & Auth**: Supabase (PostgreSQL + Auth)
+- **Database**: Supabase (PostgreSQL)
 - **ORM**: SQLAlchemy 2.0 + Alembic (데이터베이스 마이그레이션)
 - **Storage**: Supabase Storage
-- **API**: Supabase Realtime API
-- **Authentication**: Supabase Auth (Email, Social Login)
+- **Authentication**: JWT + Supabase Auth (Email, Social Login)
 - **API Documentation**: Swagger UI
+- **Validation**: Pydantic v2
+- **Async Support**: Python 3.11+ async/await
+- **Dependency Injection**: FastAPI Depends
+- **Testing**: Pytest (단위 테스트, 통합 테스트)
+- **Password Hashing**: Argon2 (with bcrypt fallback)
+- **Code Quality**: Pylint, Black, isort
+
+### **최근 업데이트**
+- ✅ 비밀번호 해싱 모듈 분리 및 최적화
+- ✅ 순환 임포트 문제 해결
+- ✅ 테스트 환경 개선 (SQLite → Supabase PostgreSQL)
+- ✅ Redis 캐싱 지원 추가
+- ✅ 보안 강화를 위한 JWT 토큰 검증 개선
 
 ### **Infrastructure**
 - **Frontend Deployment**: Vercel
+
+## 🚀 **기능 목록**
+
+- [x] 사용자 인증 (이메일/소셜 로그인)
+- [x] 강의 관리 (CRUD)
+  - [x] 강의 생성, 조회, 수정, 삭제
+  - [x] 강의 검색 및 필터링
+  - [x] 강의 카테고리 관리
+- [x] 수강 신청 및 진행 상황 추적
+  - [x] 수강 신청/취소
+  - [x] 학습 진행률 추적
+  - [x] 강의 완료 처리
+- [ ] 결제 시스템 연동
+- [x] 리뷰 및 평점 시스템
+- [ ] 알림 시스템
+- [ ] 관리자 대시보드
+
+## 🏗 **백엔드 아키텍처**
+
+### **CRUD 모듈**
+
+백엔드에서는 강의 관리 시스템을 위한 CRUD(Create, Read, Update, Delete) 기능을 구현했습니다. 각 도메인별로 모듈화되어 있으며, SQLAlchemy ORM을 사용하여 데이터베이스와 상호작용합니다.
+
+#### **주요 CRUD 모듈**
+
+1. **CourseCRUD**
+   - 강의 생성, 조회, 수정, 삭제
+   - 강의 검색 및 필터링
+   - 강의 통계 조회
+
+2. **LessonCRUD**
+   - 강의 내 레슨 관리
+   - 레슨 순서 조정
+   - 미리보기 설정
+
+3. **EnrollmentCRUD**
+   - 수강 신청/취소
+   - 수강 상태 관리
+   - 강의 완료 처리
+
+4. **UserProgressCRUD**
+   - 사용자별 학습 진행 상황 추적
+   - 강의별 완료 여부 관리
+   - 학습 통계 조회
+
+### **API 엔드포인트**
+
+모든 API는 RESTful 원칙에 따라 설계되었으며, JWT 기반 인증을 사용합니다.
+
+```
+/api/v1/courses/         # 강의 목록 조회 및 생성
+/api/v1/courses/{id}     # 특정 강의 조회, 수정, 삭제
+/api/v1/lessons/         # 레슨 목록 조회
+/api/v1/enrollments/     # 수강 신청 관리
+/api/v1/progress/        # 학습 진행 상황 관리
+```
 - **Backend Deployment**: Railway
 - **Database Hosting**: Supabase
 - **CDN**: Supabase Edge Network

@@ -15,6 +15,16 @@ from .enrollment import EnrollmentCRUD
 from .lesson import LessonCRUD
 from .user_progress import UserProgressCRUD
 
+# 퀴즈 관리 관련 CRUD 함수
+from .quiz import (
+    get_quiz, get_quizzes, create_quiz, update_quiz, delete_quiz,
+    get_question, create_question, update_question, delete_question,
+    create_choice, update_choice, delete_choice,
+    start_quiz_attempt, submit_quiz_attempt, get_quiz_attempt, get_user_quiz_attempts,
+    submit_question_answer, grade_question_answer, get_quiz_attempt_answers,
+    get_user_quiz_progress, update_user_quiz_progress, get_quiz_statistics
+)
+
 # CRUD 객체 인스턴스화
 crud_course = CourseCRUD()
 crud_lesson = LessonCRUD()
@@ -33,4 +43,12 @@ __all__ = [
     "crud_lesson",
     "crud_enrollment",
     "crud_user_progress",
+    
+    # 퀴즈 관리 관련
+    "get_quiz", "get_quizzes", "create_quiz", "update_quiz", "delete_quiz",
+    "get_question", "create_question", "update_question", "delete_question",
+    "create_choice", "update_choice", "delete_choice",
+    "start_quiz_attempt", "submit_quiz_attempt", "get_quiz_attempt", "get_user_quiz_attempts",
+    "submit_question_answer", "grade_question_answer", "get_quiz_attempt_answers",
+    "get_user_quiz_progress", "update_user_quiz_progress", "get_quiz_statistics"
 ]
